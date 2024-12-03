@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  database:
+    image: 'postgres'
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+      POSTGRES_USER: "root"
+      POSTGRES_PASSWORD: "RgDCvQEWcwBWF2QckzpE"
+      POSTGRES_DB: "vaytien"
+    ports:
+      - '5432:5432'
+    volumes:
+      - "database:/var/lib/postgresql/data"
+volumes:
+  database:
