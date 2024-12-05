@@ -12,14 +12,14 @@ import { Input } from "@/components/ui/input";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import { accountStore } from "../store";
+import { monitorStore } from "../store";
 import { Label } from "@/components/ui/label";
 
 export function ReadForm({ userId }: { userId: string }) {
   const [data, setData] = useState<any>();
   const [loading, setLoading] = useState(true);
-  const rowTarget = accountStore((store) => store.rowTarget);
-  const closeForm = accountStore((store) => store.hideForm);
+  const rowTarget = monitorStore((store) => store.rowTarget);
+  const closeForm = monitorStore((store) => store.hideForm);
 
   useEffect(() => {
     const fetchData = async () => {

@@ -1,12 +1,8 @@
 import {
-  Sheet,
   SheetClose,
-  SheetContent,
-  SheetDescription,
   SheetFooter,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet";
 import {
   Select,
@@ -17,7 +13,6 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -29,17 +24,12 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import province from "@/lib/data-address/province.json";
-import district from "@/lib/data-address/district.json";
 import { Eye, EyeOff } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { accountStore } from "../store";
+import { monitorStore } from "../store";
 
 export function CreateForm({ userId, role }: { userId: string; role: string }) {
-  const provinces = province.province;
-  const districts = district.district;
-
   const createSchema = z
     .object({
       name: z
@@ -99,28 +89,14 @@ export function CreateForm({ userId, role }: { userId: string; role: string }) {
       phone: "",
       password: "",
       confirmPassword: "",
-      city: "",
-      district: "",
-      avatar: "",
-      unitId: "",
       role: "user", // user | admin
     },
   });
 
-  const hideForm = accountStore((store) => store.hideForm);
+  const hideForm = monitorStore((store) => store.hideForm);
   const [loadingBtn, setLoadingBtn] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [proviceSelect, setProviceSelect] = useState<{
-    idProvice: string;
-    name: string;
-  }>();
-  const [districtAllow, setDistrictAllow] = useState<
-    {
-      idDistrict: string;
-      name: string;
-    }[]
-  >([]);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -129,33 +105,6 @@ export function CreateForm({ userId, role }: { userId: string; role: string }) {
   const toggleConfirmPasswordVisibility = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
-
-  function changeProvice(proviceSelect: any) {
-    const findProvice = provinces.find(
-      (provice) => provice.idProvince == proviceSelect
-    );
-    if (!findProvice) return;
-
-    setProviceSelect({
-      idProvice: findProvice.idProvince,
-      name: findProvice.name,
-    });
-  }
-
-  useEffect(() => {
-    if (proviceSelect) {
-      const filterDistrict = districts
-        .filter((item) => item.idProvince == proviceSelect.idProvice)
-        .map((item) => {
-          return {
-            idDistrict: item.idDistrict,
-            name: item.name,
-          };
-        });
-
-      setDistrictAllow(filterDistrict);
-    }
-  }, [proviceSelect]);
 
   const submitButton = createForm.handleSubmit(
     async (data: z.infer<typeof createSchema>) => {
@@ -166,10 +115,6 @@ export function CreateForm({ userId, role }: { userId: string; role: string }) {
         email: data.email,
         password: data.password,
         phone: data.phone,
-        city: data.city,
-        district: data.district ?? "",
-        avatar: "",
-        unitId: "",
         role: data.role,
       };
 
@@ -301,98 +246,6 @@ export function CreateForm({ userId, role }: { userId: string; role: string }) {
               </FormItem>
             )}
           />
-          <FormField
-            control={createForm.control}
-            name="city"
-            render={({ field }) => (
-              <FormItem className="mb-3">
-                <FormLabel>Tỉnh/Thành phố</FormLabel>
-                <Select
-                  onValueChange={(data) => {
-                    field.onChange(data), changeProvice(data);
-                  }}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Tỉnh/Thành phố" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {provinces.map((item) => {
-                      return (
-                        <SelectItem
-                          key={item.idProvince}
-                          value={item.idProvince}
-                        >
-                          {item.name}
-                        </SelectItem>
-                      );
-                    })}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={createForm.control}
-            name="district"
-            render={({ field }) => (
-              <FormItem className="mb-3">
-                <FormLabel>Quận/Huyện</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                  disabled={!proviceSelect && districtAllow.length == 0}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Quận/Huyện" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {districtAllow.map((item) => {
-                      return (
-                        <SelectItem
-                          key={item.idDistrict}
-                          value={item.idDistrict}
-                        >
-                          {item.name}
-                        </SelectItem>
-                      );
-                    })}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          {/* <FormField
-            control={createForm.control}
-            name="unitId"
-            render={({ field }) => (
-              <FormItem className="mb-3">
-                <FormLabel>Đơn vị</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Đơn vị" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value="unit1">Đơn vị 1</SelectItem>
-                    <SelectItem value="unit2">Đơn vị 2</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          /> */}
           <FormField
             control={createForm.control}
             name="role"

@@ -7,7 +7,6 @@ const Params = z.object({
     email: z.string().email(),
     password: z.string(),
     phone: z.string(),
-    avatar: z.string().optional(),
     role: z.string(),
 })
 
@@ -35,7 +34,6 @@ export async function POST(request: Request) {
                 name: data.name,
                 email: data.email,
                 phone: data.phone,
-                avatar: data.avatar,
                 password: data.password,
                 role: data.role,
             }

@@ -4,12 +4,14 @@ import { create } from "zustand";
 interface State {
     page: number
     pageSize: number
+    currentPage: number
     openForm: boolean
     rowTarget: string
     formMode: "read" | "update" | "create"
 
     setPage: (value: number) => void
     setPageSize: (value: number) => void
+    setCurrentPage: (value: number) => void;
     setOpenForm: (open: boolean) => void
     hideForm: () => void
     setRowTarget: (rowId: string) => void
@@ -18,9 +20,10 @@ interface State {
     openUpdateForm: () => void
 }
 
-export const accountStore = create<State>((set) => ({
+export const monitorStore = create<State>((set) => ({
     page: 1,
     pageSize: 10,
+    currentPage: 1,
     openForm: false,
     rowTarget: "",
     formMode: "read",
@@ -30,6 +33,9 @@ export const accountStore = create<State>((set) => ({
     },
     setPageSize(value: number) {
         set({ pageSize: value })
+    },
+    setCurrentPage(currentPage: number) {
+        set({ currentPage: currentPage, });
     },
     setOpenForm(open: boolean) {
         set({ openForm: open })

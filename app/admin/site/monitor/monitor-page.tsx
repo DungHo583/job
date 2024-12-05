@@ -12,9 +12,8 @@ import {
 } from "@/components/ui/card";
 import { SheetForm } from "./form";
 import { DataTable } from "./data-table";
-import { PaginationPage } from "./paginate";
 import { SearchInput } from "./search-input";
-import { accountStore } from "./store";
+import { monitorStore } from "./store";
 import LoadingPage from "../loading";
 
 export function MonitorPage({
@@ -26,8 +25,8 @@ export function MonitorPage({
 }) {
   const [data, setData] = useState<any>();
   const [loading, setLoading] = useState(true);
-  const page = accountStore((store) => store.page);
-  const pageSize = accountStore((store) => store.pageSize);
+  const page = monitorStore((store) => store.page);
+  const pageSize = monitorStore((store) => store.pageSize);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -93,11 +92,13 @@ export function MonitorPage({
             </div>
           </CardHeader>
           <CardContent className="" style={{ height: "calc(100% - 180px)" }}>
-            <DataTable columns={columns} data={data ? data : []} />
+            <DataTable
+              columns={columns}
+              data={data ? data : []}
+              dataLength={data.length}
+            />
           </CardContent>
-          <CardFooter className="">
-            <PaginationPage />
-          </CardFooter>
+          <CardFooter className="">{/* <PaginationPage /> */}</CardFooter>
         </Card>
       )}
     </>

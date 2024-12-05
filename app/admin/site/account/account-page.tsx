@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/card";
 import { SheetForm } from "./form";
 import { DataTable } from "./data-table";
-import { PaginationPage } from "./paginate";
 import { SearchInput } from "./search-input";
 import { accountStore } from "./store";
 import LoadingPage from "../loading";
@@ -28,46 +27,51 @@ export function AccoutsPage({
   const [loading, setLoading] = useState(true);
   const page = accountStore((store) => store.page);
   const pageSize = accountStore((store) => store.pageSize);
+  const refreshData = accountStore((store) => store.refreshData);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_DOMAIN}/api/accounts?userId=${userId}&page=${page}&pageSize=${pageSize}`,
-          {
-            method: "GET",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        if (!response.ok) {
-          throw new Error("Lỗi khi get data");
+  const fetchData = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_DOMAIN}/api/accounts?userId=${userId}&page=${page}&pageSize=${pageSize}`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
         }
-        const result = await response.json();
-
-        const dataRes = result.data.map((item: any) => {
-          return {
-            id: item.id,
-            name: item.name,
-            email: item.email,
-            role: item.role,
-          };
-        });
-
-        setData(dataRes);
-      } catch (error: any) {
-        toast.error(`${error}`);
-      } finally {
-        setLoading(false);
+      );
+      if (!response.ok) {
+        throw new Error("Lỗi khi get data");
       }
-    };
+      const result = await response.json();
 
+      const dataRes = result.data.map((item: any) => {
+        return {
+          id: item.id,
+          name: item.name,
+          email: item.email,
+          role: item.role,
+        };
+      });
+
+      setData(dataRes);
+    } catch (error: any) {
+      toast.error(`${error}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  useEffect(() => {
     if (userId) {
       fetchData();
     }
   }, [userId, page, pageSize]);
+
+  useEffect(() => {
+    fetchData();
+  }, [refreshData]);
 
   return (
     <>
@@ -87,11 +91,13 @@ export function AccoutsPage({
             </div>
           </CardHeader>
           <CardContent className="" style={{ height: "calc(100% - 180px)" }}>
-            <DataTable columns={columns} data={data ? data : []} />
+            <DataTable
+              columns={columns}
+              data={data ? data : []}
+              dataLength={data.length}
+            />
           </CardContent>
-          <CardFooter className="">
-            <PaginationPage />
-          </CardFooter>
+          <CardFooter className="">{/* <PaginationPage /> */}</CardFooter>
         </Card>
       )}
     </>

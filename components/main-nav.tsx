@@ -22,6 +22,11 @@ export default function MainNav({ roleUser }: { roleUser: string }) {
       href: "/admin/site/monitor",
       role: "all",
     },
+    {
+      title: "Iframe",
+      href: "/admin/site/view-iframe",
+      role: "all",
+    },
   ];
 
   return (

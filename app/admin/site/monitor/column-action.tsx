@@ -9,12 +9,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
-import { accountStore } from "./store";
+import { monitorStore } from "./store";
 
 export function ColumnAction({ rowId }: { rowId: string }) {
   const openReadForm = () => {
-    accountStore.getState().openReadForm();
-    accountStore.getState().setRowTarget(rowId);
+    monitorStore.getState().openReadForm();
+    monitorStore.getState().setRowTarget(rowId);
   };
 
   // const openUpdateForm = () => {

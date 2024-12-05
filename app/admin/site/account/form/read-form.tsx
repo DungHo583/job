@@ -64,14 +64,11 @@ export function ReadForm({ userId }: { userId: string }) {
       ) : (
         <>
           <SheetHeader className="mb-3">
-            <SheetTitle>Read Acount</SheetTitle>
-            {/* <SheetDescription>
-              Make changes to your profile here. Click save when you're done.
-            </SheetDescription> */}
+            <SheetTitle>Thông tin tài khoản</SheetTitle>
           </SheetHeader>
           <div className="w-full">
             <div className="mb-3">
-              <Label>Name</Label>
+              <Label>Họ tên:</Label>
               <Input
                 disabled
                 type="text"
@@ -80,7 +77,7 @@ export function ReadForm({ userId }: { userId: string }) {
               />
             </div>
             <div className="mb-3">
-              <Label>Email</Label>
+              <Label>Email:</Label>
               <Input
                 disabled
                 type="text"
@@ -89,29 +86,12 @@ export function ReadForm({ userId }: { userId: string }) {
               />
             </div>
             <div className="mb-3">
-              <Label>Phone</Label>
+              <Label>Số điện thoại</Label>
               <Input disabled type="text" readOnly defaultValue={data.phone} />
-            </div>
-            <div className="mb-3">
-              <Label>Birthday</Label>
-              <Input
-                disabled
-                type="text"
-                readOnly
-                defaultValue={data.birthday}
-              />
-            </div>
-            <div className="mb-3">
-              <Label>Gender</Label>
-              <Input disabled type="text" readOnly defaultValue={data.gender} />
             </div>
             <div className="mb-3">
               <Label>Role</Label>
               <Input disabled type="text" readOnly defaultValue={data.role} />
-            </div>
-            <div className="mb-3">
-              <Label>Status</Label>
-              <Input disabled type="text" readOnly defaultValue={data.status} />
             </div>
           </div>
           <SheetFooter>
