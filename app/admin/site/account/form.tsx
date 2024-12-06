@@ -25,7 +25,7 @@ export function SheetForm({ userId, role }: { userId: string; role: string }) {
         {match(formMode)
           .with("read", () => <ReadForm userId={userId} />)
           .with("create", () => <CreateForm userId={userId} role={role} />)
-          .with("update", () => <UpdateForm userId={userId} />)
+          .with("update", () => <UpdateForm userId={userId} role={role} />)
           .exhaustive()}
       </SheetContent>
     </Sheet>

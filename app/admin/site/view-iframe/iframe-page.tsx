@@ -26,7 +26,7 @@ export function ViewIframePage({
       {loading ? (
         <LoadingPage />
       ) : (
-        <Card className="h-full">
+        <Card className="h-[max-content] min-h-[500px]">
           <CardContent className="pt-6" style={{ height: "100%" }}>
             <iframe
               className="w-full h-full"

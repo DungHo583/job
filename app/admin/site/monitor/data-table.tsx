@@ -87,7 +87,7 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="mt-3">
+      <div className="mt-3 pb-3">
         <DataTablePagination
           table={table}
           useStore={monitorStore}

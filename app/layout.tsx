@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body style={{ overflowX: "hidden" }}>
+      <body className="max-h-dvh overflow-hidden">
         <ThemeProvider
           attribute="class"
           defaultTheme="light"

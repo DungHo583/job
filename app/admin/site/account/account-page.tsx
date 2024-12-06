@@ -62,7 +62,7 @@ export function AccoutsPage({
       setLoading(false);
     }
   };
-  
+
   useEffect(() => {
     if (userId) {
       fetchData();
@@ -78,7 +78,7 @@ export function AccoutsPage({
       {loading ? (
         <LoadingPage />
       ) : (
-        <Card className="h-full">
+        <Card className="h-full overflow-y-auto">
           <CardHeader>
             <CardTitle className="text-lg">Quản lý tài khoản</CardTitle>
             <div className="w-full flex justify-between mt-4">
@@ -97,7 +97,6 @@ export function AccoutsPage({
               dataLength={data.length}
             />
           </CardContent>
-          <CardFooter className="">{/* <PaginationPage /> */}</CardFooter>
         </Card>
       )}
     </>

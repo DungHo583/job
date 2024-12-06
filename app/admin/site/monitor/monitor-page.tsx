@@ -79,7 +79,7 @@ export function MonitorPage({
       {loading ? (
         <LoadingPage />
       ) : (
-        <Card className="h-full">
+        <Card className="h-full overflow-y-auto">
           <CardHeader>
             <CardTitle className="text-lg">Giám sát</CardTitle>
             <div className="w-full flex justify-between mt-4">
@@ -91,14 +91,13 @@ export function MonitorPage({
               </div>
             </div>
           </CardHeader>
-          <CardContent className="" style={{ height: "calc(100% - 180px)" }}>
+          <CardContent className="" style={{ height: "calc(100% - 180px)"}}>
             <DataTable
               columns={columns}
               data={data ? data : []}
               dataLength={data.length}
             />
           </CardContent>
-          <CardFooter className="">{/* <PaginationPage /> */}</CardFooter>
         </Card>
       )}
     </>

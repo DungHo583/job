@@ -18,12 +18,12 @@ export default async function Layout({ children }: { children: ReactNode }) {
           <MainNav roleUser={session.role} />
         </div>
         <div className="w-full min-h-dvh bg-white dark:bg-black">
-          <div className="w-full h-full flex flex-wrap">
+          <div className="w-full h-dvh flex flex-wrap">
             <div className="w-full max-h-[64px] min-h-[64px] px-3">
               <MainHeader name={session.name} />
             </div>
             <div
-              style={{ height: "calc(100% - 70px)" }}
+              style={{ height: "calc(100% - 70px)",  }}
               className="w-full p-3 bg-gray-100 overflow-y-auto"
             >
               {children}

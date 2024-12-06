@@ -16,6 +16,31 @@ async function main() {
       },
     });
   }
+
+  length = 10
+  for (let i = 0; i < length; i++) {
+    await prisma.user.create({
+      data: {
+        email: `user${i}@dashboard.com`,
+        name: "User " + i,
+        password: "Abc@123abc",
+        role: "user",
+      },
+    })
+
+    await prisma.monitor.create({
+      data: {
+        sessionId: "randome session" + i,
+        sipMethod: "Invite",
+        sipFromUser: `100${i}`,
+        sipToUser: `110${i + 2}`,
+        sourceIP: `192.168.186.${i * 123}`,
+        srcPort: `${i * 1234}`,
+        destinationIP: `192.168.186.${i * 321}`,
+        dstPort: `${i * 4321}`
+      }
+    })
+  }
 }
 
 main()

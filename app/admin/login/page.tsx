@@ -91,7 +91,7 @@ export default function LoginPage() {
                 control={form.control}
                 name="username"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="mb-3">
                     <FormLabel>Email</FormLabel>
                     <FormControl>
                       <Input type="text" placeholder="Email" {...field} />

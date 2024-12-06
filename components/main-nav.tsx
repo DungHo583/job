@@ -32,42 +32,61 @@ export default function MainNav({ roleUser }: { roleUser: string }) {
   return (
     <div className="h-full">
       <div className="h-[80px] py-5 pl-5 text-white font-bold">LOGO</div>
-      <div className="px-3">
-        <div className="w-full flex-wrap">
-          {components.map((nav, idx) => {
-            const isActive = nav.href.includes(pathname);
-            if (roleUser == "user" && nav.role != "root") {
-              return (
-                <Link className="w-full" key={idx} href={nav.href}>
-                  <div
-                    className={
-                      "inline-flex items-center rounded-md text-sm font-medium transition-colors hover:bg-muted hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground h-9 px-3 w-full justify-start mb-2 " +
-                      (isActive
-                        ? "bg-muted text-muted-foreground"
-                        : "bg-transparent text-white dark:text-black")
-                    }
-                  >
-                    {nav.title}
-                  </div>
-                </Link>
-              );
-            } else {
-              return (
-                <Link className="w-full" key={idx} href={nav.href}>
-                  <div
-                    className={
-                      "inline-flex items-center rounded-md text-sm font-medium transition-colors hover:bg-muted hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground h-9 px-3 w-full justify-start mb-2 " +
-                      (isActive
-                        ? "bg-muted text-muted-foreground"
-                        : "bg-transparent text-white dark:text-black")
-                    }
-                  >
-                    {nav.title}
-                  </div>
-                </Link>
-              );
-            }
-          })}
+      <div className="px-3 pb-3" style={{ height: "calc(100% - 80px)" }}>
+        <div className="w-full flex-wrap h-full">
+          <div className="h-1/2">
+            <Link className="w-full" href={"/admin/site/dashboard"}>
+              <div
+                className={
+                  "inline-flex items-center rounded-md text-sm font-medium transition-colors hover:bg-muted hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground h-9 px-3 w-full justify-start mb-2 " +
+                  (pathname.includes("dashboard")
+                    ? "bg-muted text-muted-foreground"
+                    : "bg-transparent text-white dark:text-black")
+                }
+              >
+                Dashboard
+              </div>
+            </Link>
+            <Link className="w-full" href={"/admin/site/account"}>
+              <div
+                className={
+                  "inline-flex items-center rounded-md text-sm font-medium transition-colors hover:bg-muted hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground h-9 px-3 w-full justify-start mb-2 " +
+                  (pathname.includes("account")
+                    ? "bg-muted text-muted-foreground"
+                    : "bg-transparent text-white dark:text-black")
+                }
+              >
+                Tài khoản
+              </div>
+            </Link>
+          </div>
+
+          <div className="pt-4 border-t-2	border-white h-1/2">
+            <Link className="w-full" href={"/admin/site/monitor"}>
+              <div
+                className={
+                  "inline-flex items-center rounded-md text-sm font-medium transition-colors hover:bg-muted hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground h-9 px-3 w-full justify-start mb-2 " +
+                  (pathname.includes("monitor")
+                    ? "bg-muted text-muted-foreground"
+                    : "bg-transparent text-white dark:text-black")
+                }
+              >
+                Theo dõi
+              </div>
+            </Link>
+            <Link className="w-full" href={"/admin/site/view-iframe"}>
+              <div
+                className={
+                  "inline-flex items-center rounded-md text-sm font-medium transition-colors hover:bg-muted hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground h-9 px-3 w-full justify-start mb-2 " +
+                  (pathname.includes("view-iframe")
+                    ? "bg-muted text-muted-foreground"
+                    : "bg-transparent text-white dark:text-black")
+                }
+              >
+                Iframe
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

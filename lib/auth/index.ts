@@ -78,7 +78,7 @@ export const authOptions: NextAuthOptions = {
         return {
           id: findAccount.id,
           email: findAccount.email,
-          image: findAccount.image,
+          // image: findAccount.image,
           name: findAccount.name,
         }
       },
