@@ -17,7 +17,7 @@ async function main() {
     });
   }
 
-  length = 10
+  length = 30
   for (let i = 0; i < length; i++) {
     await prisma.user.create({
       data: {

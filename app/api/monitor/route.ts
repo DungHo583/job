@@ -31,6 +31,7 @@ export async function GET(request: Request,) {
         }
 
         let dataMonitor = <any>[]
+        let count = 0
 
         if (findUser.role == "root") {
             dataMonitor = await prisma.monitor.findMany({
@@ -38,6 +39,7 @@ export async function GET(request: Request,) {
                 skip: pageSize * (page - 1),
                 orderBy: { createdAt: "desc" }
             })
+            count = await prisma.monitor.count()
         }
 
         // if (findUser.role == "admin") {
@@ -48,7 +50,7 @@ export async function GET(request: Request,) {
         //     })
         // }
 
-        return Response.json({ data: dataMonitor, dataOk: true })
+        return Response.json({ data: dataMonitor, dataOk: true, count: count })
     } catch (error) {
         return new Response(`Server is error: ${error}`, {
             status: 500,

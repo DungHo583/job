@@ -2,7 +2,6 @@
 import { create } from "zustand";
 
 interface State {
-    page: number
     currentPage: number;
     pageSize: number
     openForm: boolean
@@ -10,7 +9,6 @@ interface State {
     formMode: "read" | "update" | "create"
     refreshData: boolean
 
-    setPage: (value: number) => void
     setCurrentPage: (value: number) => void;
     setPageSize: (value: number) => void
     setOpenForm: (open: boolean) => void
@@ -23,7 +21,6 @@ interface State {
 }
 
 export const accountStore = create<State>((set) => ({
-    page: 1,
     pageSize: 10,
     currentPage: 1,
     openForm: false,
@@ -31,9 +28,6 @@ export const accountStore = create<State>((set) => ({
     formMode: "read",
     refreshData: false,
 
-    setPage(value: number) {
-        set({ page: value })
-    },
     setPageSize(value: number) {
         set({ pageSize: value })
     },

@@ -25,7 +25,8 @@ export function MonitorPage({
 }) {
   const [data, setData] = useState<any>();
   const [loading, setLoading] = useState(true);
-  const page = monitorStore((store) => store.page);
+  const [count, setCount] = useState(0);
+  const page = monitorStore((store) => store.currentPage);
   const pageSize = monitorStore((store) => store.pageSize);
 
   useEffect(() => {
@@ -61,6 +62,7 @@ export function MonitorPage({
           };
         });
 
+        setCount(result.count);
         setData(dataRes);
       } catch (error: any) {
         toast.error(`${error}`);
@@ -91,11 +93,11 @@ export function MonitorPage({
               </div>
             </div>
           </CardHeader>
-          <CardContent className="" style={{ height: "calc(100% - 180px)"}}>
+          <CardContent className="" style={{ height: "calc(100% - 180px)" }}>
             <DataTable
               columns={columns}
               data={data ? data : []}
-              dataLength={data.length}
+              dataLength={count}
             />
           </CardContent>
         </Card>

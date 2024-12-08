@@ -25,7 +25,8 @@ export function AccoutsPage({
 }) {
   const [data, setData] = useState<any>();
   const [loading, setLoading] = useState(true);
-  const page = accountStore((store) => store.page);
+  const [count, setCount] = useState(0);
+  const page = accountStore((store) => store.currentPage);
   const pageSize = accountStore((store) => store.pageSize);
   const refreshData = accountStore((store) => store.refreshData);
 
@@ -55,6 +56,7 @@ export function AccoutsPage({
         };
       });
 
+      setCount(result.count);
       setData(dataRes);
     } catch (error: any) {
       toast.error(`${error}`);
@@ -94,7 +96,7 @@ export function AccoutsPage({
             <DataTable
               columns={columns}
               data={data ? data : []}
-              dataLength={data.length}
+              dataLength={count}
             />
           </CardContent>
         </Card>

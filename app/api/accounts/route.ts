@@ -31,6 +31,7 @@ export async function GET(request: Request,) {
         }
 
         let dataAccouts = <any>[]
+        let count = 0
 
         if (findUser.role == "root") {
             dataAccouts = await prisma.user.findMany({
@@ -40,6 +41,11 @@ export async function GET(request: Request,) {
                     role: { notIn: ["root"] },
                 },
                 orderBy: { createdAt: "desc" }
+            })
+            count = await prisma.user.count({
+                where: {
+                    role: { notIn: ["root"] },
+                },
             })
         }
 
@@ -53,9 +59,15 @@ export async function GET(request: Request,) {
                 },
                 orderBy: { createdAt: "desc" }
             })
+            count = await prisma.user.count({
+                where: {
+                    role: { in: ["user", "admin"] },
+                    active: true,
+                },
+            })
         }
 
-        return Response.json({ data: dataAccouts, dataOk: true })
+        return Response.json({ data: dataAccouts, dataOk: true, count: count })
     } catch (error) {
         return new Response(`Server is error: ${error}`, {
             status: 500,
